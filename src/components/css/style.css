@@ -1,6 +1,6 @@
 /* style.css */
 
-.box {
+.card {
     margin: 50px auto;
     width: 90%;
     max-width: 400px;
@@ -8,17 +8,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
     font-family: 'Arial', sans-serif;
-    padding: 20px;
-    height: 300px;
-    /* Set fixed height */
-    display: flex;
-    /* Use flexbox for layout */
-    flex-direction: column;
-    /* Stack children vertically */
-    justify-content: space-between;
-    /* Space items evenly */
-    position: relative;
-    /* Add position relative for absolute positioning */
+    padding: 30px;
 }
 
 .inputField {
@@ -29,7 +19,6 @@
     font-size: 16px;
     outline: none;
     margin-bottom: 20px;
-    /* Add margin bottom for spacing */
 }
 
 .info {
@@ -38,52 +27,39 @@
 
 .location {
     margin-bottom: 10px;
-    /* Add margin bottom for spacing */
     font-size: 24px;
-    /* Increase font size */
     color: #333;
 }
 
 .temp {
     margin: 5px 0;
     font-size: 36px;
-    /* Increase font size */
     color: #333;
 }
 
 .tempmin_max {
     margin-bottom: 10px;
-    /* Add margin bottom for spacing */
     font-size: 16px;
-    /* Increase font size */
     color: #666;
 }
 
 .fa-regular.fa-sun {
     font-size: 60px;
-    /* Increase icon size */
     color: #fdd835;
-    /* Set icon color */
-    position: absolute;
-    /* Position the icon absolutely */
-    top: 90px;
-    /* Adjust top position */
-    left: 40%;
-    /* Center horizontally */
-    transform: translateX(-50%);
-    /* Center horizontally */
     animation: spin 5s linear infinite;
-    /* Add animation */
 }
 
 @keyframes spin {
     from {
         transform: rotate(0deg);
-        /* Start rotation */
     }
 
     to {
         transform: rotate(360deg);
-        /* End rotation */
     }
+}
+
+.weatherData{
+    font-size: 15px;
+    color: #666;
 }
