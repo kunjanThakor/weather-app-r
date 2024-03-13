@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./css/style.css";
+import { easeIn, motion } from 'framer-motion';
+
 const First = () => {
     const [city, setcity] = useState('Anand');
     const [weather, setweather] = useState('Anand')
@@ -13,11 +15,8 @@ const First = () => {
             const response = await fetch(url);
             const resjson = await response.json();
 
-            //console.log(resjson);
 
             setcity(resjson.main);
-            // setcity2(resjson.weather);
-            // console.log(resjson.weather);
             if (resjson.weather && resjson.weather.length > 0) {
                 setweather(resjson.weather[0]);
             } else {
@@ -35,9 +34,19 @@ const First = () => {
     const padWithZero = (num) => {
         return num < 10 ? "0" + num : num;
     };
+
+
     return (
         <>
-            <div className="box">
+            <motion.div className="box"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                variants={{
+                    visible: { opacity: 1, scale: 1 },
+                    hidden: { opacity: 0, scale: 0.5 }
+                }}>
                 <div class="card">
                     <div class="search">
                         <input type="search" className="inputField" value={search} onChange={(event) => {
@@ -49,7 +58,9 @@ const First = () => {
                     {!city ? (<p>No data found</p>) : (
                         <div>
                             <div className="info">
-                                <div className="icon">
+                                <motion.div className="icon"
+                                    animate={{ rotate: [0, 360] }}
+                                    transition={{ ease: "linear", duration: 2, repeat: Infinity }}>
                                     {/* /* <i className="fa-regular fa-sun"></i>
                                     */ }
 
@@ -58,7 +69,7 @@ const First = () => {
                                     )}
                                     {/* <img src={`https://murphyslaw.github.io/hosted-assets/weather/${weather.main.toLowerCase()}.png`} alt="icon" /> */}
 
-                                </div>
+                                </motion.div>
                                 <h2 className="location">
                                     <br></br>
                                     <span>
@@ -80,14 +91,14 @@ const First = () => {
                                     <br />
                                     <br />
                                     {padWithZero(time.getDate())} / {padWithZero(time.getMonth() + 1)} / {time.getFullYear()}
-
+                                    <p>Made By Kunjan Thakor</p>
                                 </h1>
                             </div>
                         </div>
 
                     )}
                 </div>
-            </div >
+            </motion.div>
 
         </>
     )
