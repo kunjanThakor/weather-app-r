@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./css/style.css";
-import { easeIn, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'; // Import FontAwesome icons for sun and moon
 
 const First = () => {
-    const [city, setcity] = useState('Anand');
-    const [weather, setweather] = useState('Anand')
-    const [search, setsearch] = useState('Anand');
+    const [city, setCity] = useState('Anand');
+    const [weather, setWeather] = useState('Anand');
+    const [search, setSearch] = useState('Anand');
     const [time, setTime] = useState(new Date());
+    const [isActive, setIsActive] = useState(false);
+    const [dark, setDark] = useState(false);
+
     //https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=ec19cb7701a917d19d7e8f700f3429d7
 
     useEffect(() => {
@@ -15,12 +20,11 @@ const First = () => {
             const response = await fetch(url);
             const resjson = await response.json();
 
-
-            setcity(resjson.main);
+            setCity(resjson.main);
             if (resjson.weather && resjson.weather.length > 0) {
-                setweather(resjson.weather[0]);
+                setWeather(resjson.weather[0]);
             } else {
-                setweather(null);
+                setWeather(null);
             }
         }
 
@@ -28,13 +32,19 @@ const First = () => {
             setTime(new Date());
         }, 1000);
 
-        // () => clearInterval(interval);
         fetchApi();
+
+        return () => clearInterval(interval);
     }, [search]);
+
     const padWithZero = (num) => {
         return num < 10 ? "0" + num : num;
     };
 
+    function toggle() {
+        setIsActive(!isActive);
+        setDark(!dark);
+    }
 
     return (
         <>
@@ -46,60 +56,43 @@ const First = () => {
                 variants={{
                     visible: { opacity: 1, scale: 1 },
                     hidden: { opacity: 0, scale: 0.5 }
-                }}>
-                <div class="card">
-                    <div class="search">
+                }}
+            >
+
+                <div className={`card ${dark ? 'dark' : ''}`}>
+                    <div className={`toggle ${isActive ? 'active' : ''}`} onClick={toggle}>
+                        <FontAwesomeIcon icon={dark ? faMoon : faSun} className="toggle-icon" />
+                    </div>
+                    <div className="search">
                         <input type="search" className="inputField" value={search} onChange={(event) => {
-                            setsearch(event.target.value)
+                            setSearch(event.target.value)
                         }} />
                     </div>
 
-
                     {!city ? (<p>No data found</p>) : (
-                        <div>
-                            <div className="info">
-                                <motion.div className="icon"
-                                    animate={{ rotate: [0, 360] }}
-                                    transition={{ ease: "linear", duration: 2, repeat: Infinity }}>
-                                    {/* /* <i className="fa-regular fa-sun"></i>
-                                    */ }
-
-                                    {weather && weather.main && (
-                                        <img src={`https://murphyslaw.github.io/hosted-assets/weather/${weather.main.toLowerCase()}.png`} alt="Weather Icon" />
-                                    )}
-                                    {/* <img src={`https://murphyslaw.github.io/hosted-assets/weather/${weather.main.toLowerCase()}.png`} alt="icon" /> */}
-
-                                </motion.div>
-                                <h2 className="location">
-                                    <br></br>
-                                    <span>
-                                        {search}
-                                        <br />
-                                    </span>
-                                </h2>
-                                <h1 className="temp">
-                                    {city.temp} °C
-                                </h1>
-                                <h2 className="weatherData">
-
-                                    Weather : {weather.main} | Humidity : {city.humidity}%
-
-
-                                </h2>
-                                <h1 className="tempmin_max">
-                                    min: {city.temp_min} °C | max: {city.temp_max} °C
-                                    <br />
-                                    <br />
-                                    {padWithZero(time.getDate())} / {padWithZero(time.getMonth() + 1)} / {time.getFullYear()}
-                                    <p>Made By Kunjan Thakor</p>
-                                </h1>
+                        <div className="info">
+                            <div className="icon">
+                                {weather && weather.main && (
+                                    <img src={`https://murphyslaw.github.io/hosted-assets/weather/${weather.main.toLowerCase()}.png`} alt="Weather Icon" />
+                                )}
                             </div>
+                            <h2 className="location">
+                                <span>{search}</span>
+                            </h2>
+                            <h1 className="temp">{city.temp} °C</h1>
+                            <h2 className="weatherData">
+                                Weather: {weather.main} | Humidity: {city.humidity}%
+                            </h2>
+                            <h1 className="tempmin_max">
+                                Min: {city.temp_min} °C | Max: {city.temp_max} °C
+                                <br />
+                                {padWithZero(time.getDate())} / {padWithZero(time.getMonth() + 1)} / {time.getFullYear()}
+                                <p className="made-by">Made By Kunjan Thakor</p>
+                            </h1>
                         </div>
-
                     )}
                 </div>
-            </motion.div>
-
+            </motion.div >
         </>
     )
 }

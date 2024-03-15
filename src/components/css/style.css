@@ -1,5 +1,6 @@
 /* style.css */
 
+/* Base styles */
 .card {
     margin: 50px auto;
     width: 90%;
@@ -9,6 +10,7 @@
     border-radius: 15px;
     font-family: 'Arial', sans-serif;
     padding: 30px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .inputField {
@@ -19,6 +21,7 @@
     font-size: 16px;
     outline: none;
     margin-bottom: 20px;
+    transition: border-color 0.3s;
 }
 
 .info {
@@ -29,37 +32,126 @@
     margin-bottom: 10px;
     font-size: 24px;
     color: #333;
+    transition: color 0.3s;
 }
 
 .temp {
     margin: 5px 0;
     font-size: 36px;
     color: #333;
+    transition: color 0.3s;
 }
 
 .tempmin_max {
     margin-bottom: 10px;
     font-size: 16px;
     color: #666;
+    transition: color 0.3s;
 }
 
-.fa-regular.fa-sun {
-    font-size: 60px;
-    color: #fdd835;
-    animation: spin 5s linear infinite;
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.weatherData{
+.weatherData {
     font-size: 15px;
     color: #666;
+    transition: color 0.3s;
+}
+
+.toggle {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    border: 2px solid #494949;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .3s;
+    margin-bottom: 20px;
+    left: 90%;
+}
+
+.toggle-icon {
+    font-size: 20px;
+    color: #494949;
+}
+
+.active {
+    border-color: rgb(85, 227, 180);
+}
+
+.active .toggle-icon {
+    color: rgb(85, 227, 180);
+}
+
+/* Dark mode styles */
+.dark {
+    background-color: #333;
+    /* Dark background color */
+    color: #fff;
+    /* Text color for dark theme */
+}
+
+.dark .inputField {
+    border-color: #aaa;
+    /* Border color for input in dark theme */
+}
+
+.dark .location {
+    color: #fff;
+    /* Text color for location in dark theme */
+}
+
+.dark .temp {
+    color: #fff;
+    /* Text color for temperature in dark theme */
+}
+
+.dark .tempmin_max {
+    color: #ccc;
+    /* Text color for min/max temperature in dark theme */
+}
+
+.dark .toggle {
+    border-color: #fff;
+    /* Border color for dark mode toggle */
+}
+
+.dark .toggle .toggle-icon {
+    color: #ffcc00;
+    /* Icon color for dark mode toggle */
+}
+
+.dark .weatherData {
+    color: #ccc;
+    /* Text color for weather data in dark theme */
+}
+
+.dark .made-by {
+    color: #ccc;
+    /* Text color for "Made By" text in dark theme */
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+    .card {
+        margin: 20px auto;
+        padding: 20px;
+        width: 80%;
+    }
+
+    .inputField {
+        width: calc(100% - 24px);
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .card {
+        margin: 10px auto;
+        padding: 15px;
+        width: 90%;
+    }
+
+    .inputField {
+        width: calc(100% - 20px);
+    }
 }
